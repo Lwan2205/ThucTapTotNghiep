@@ -15,29 +15,54 @@ const generateRefreshToken = (id) => {
     })
 }
 
-const registerUser = async (req, res) => {
-    const { userName, email, password, phoneNumber, address } = req.body
-    if (!userName || !email || !password || !phoneNumber || !address) {
-        return res.status(400).json({ message: "Please fill fully" })
-    }
-    try {
+// const registerUser = async (req, res) => {
+//     const { userName, email, password, phoneNumber, address } = req.body
+//     if (!userName || !email || !password || !phoneNumber || !address) {
+//         return res.status(400).json({ message: "Please fill fully" })
+//     }
+//     try {
 
-        const hashPassword = await bcrypt.hash(password, saltRounds)
+//         const hashPassword = await bcrypt.hash(password, saltRounds)
+//         const user = await User.create({
+//             userName,
+//             email,
+//             password: hashPassword,
+//             phoneNumber,
+//             address
+//         })
+//         res.status(201).json({ message: "Register successfully" })
+//     }
+//     catch (err) {
+//         res.status(500).json(err.message)
+//     }
+
+
+// }
+const registerUser = async (req, res) => {
+    const { userName, email, password, phoneNumber, address, age, gender } = req.body;
+
+    if (!userName || !email || !password || !phoneNumber || !address || !age || !gender) {
+        return res.status(400).json({ message: "Please fill fully" });
+    }
+
+    try {
+        const hashPassword = await bcrypt.hash(password, saltRounds);
         const user = await User.create({
             userName,
             email,
             password: hashPassword,
             phoneNumber,
-            address
-        })
-        res.status(201).json({ message: "Register successfully" })
+            address,
+            age,
+            gender
+        });
+        res.status(201).json({ message: "Register successfully" });
     }
     catch (err) {
-        res.status(500).json(err.message)
+        res.status(500).json(err.message);
     }
-
-
 }
+
 const loginUser = async (req, res) => {
     const { email, password } = req.body
 
@@ -71,7 +96,7 @@ const loginUser = async (req, res) => {
             });
 
 
-            res.status(200).json({ message: "Login succesfully", data: user,token: access_token ,refreshToken:refresh_token,email:user.email})
+            res.status(200).json({ message: "Login succesfully", data: user, token: access_token, refreshToken: refresh_token, email: user.email })
             // res.status(200).json({
             //     success: true,
             //     _id: user._id,
@@ -89,7 +114,7 @@ const loginUser = async (req, res) => {
         return res.status(500).json({ message: err })
     }
 
-}   
+}
 
 
 

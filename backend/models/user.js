@@ -7,9 +7,9 @@ const userSchema = new mongoose.Schema({
     phoneNumber: { type: String, require: true },
     address: { type: String, require: true },
     role: { type: String, enum: ['admin', 'user'], default: "user" },
-    refresh_token: { type: String }
-
-
+    refresh_token: { type: String },
+    age: { type: Number, require: true },  // Trường tuổi
+    gender: { type: String, enum: ['nam', 'nữ'], require: true }  // Trường giới tính (nam, nữ)
 }, { timestamps: true })
 
 const User = mongoose.model("User", userSchema)

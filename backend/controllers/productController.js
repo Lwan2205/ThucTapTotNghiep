@@ -118,7 +118,7 @@ const getAllProduct = async (req, res) => {
     try {
         // Lấy thông số phân trang từ query
         const page = parseInt(req.query.page) || 1;  // Trang hiện tại, mặc định là trang 1
-        const limit = parseInt(req.query.limit) || 10;  // Số sản phẩm mỗi trang, mặc định là 10
+        const limit = parseInt(req.query.limit) || 100;  // Số sản phẩm mỗi trang, mặc định là 20
 
         const products = await Product.find()
             .skip((page - 1) * limit)  // Bỏ qua (page - 1) * limit sản phẩm
